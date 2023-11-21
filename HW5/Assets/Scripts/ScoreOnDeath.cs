@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ScoreOnDeath : MonoBehaviour
+{
+    public int amount;
+
+    private void Awake()
+    {
+        var life = GetComponent<Life>();
+        life.onDeath.AddListener(GivePoints);
+    }
+
+    void GivePoints()
+    {
+        ScoreManager.instance.amount += amount;
+    }
+}
+
+/*public class ScoreOnDeath : MonoBehaviour
+{
+    public int amount;
+    private bool life = true;
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Bullet")
+        {
+            life = false;
+            if (!life)
+            {
+                Destroy(gameObject);
+                ScoreManager.instance.amount += amount;
+            }
+        };
+    }
+}
+*/
