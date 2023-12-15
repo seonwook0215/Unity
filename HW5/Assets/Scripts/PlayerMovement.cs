@@ -17,8 +17,10 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -18f;
     public float jumpForce = 18f;
     private Vector3 moveDirection;
+    public AudioSource audiosource;
     public ParticleSystem runningEffect;
     public bool grounded = true;
+    private bool isPlayingWalking = false;
     void Start()
     {
         _animator = this.GetComponent<Animator>();
@@ -30,6 +32,27 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if(verticalInput!=0 || horizontalInput != 0)
+        {
+            if (isPlayingWalking)
+            {
+
+            }
+            else
+            {
+                isPlayingWalking = true;
+                audiosource.Play();
+            }
+
+        }
+        else
+        {
+            isPlayingWalking = false;
+            audiosource.Stop();
+        }
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             toggleCameraRotation = true;

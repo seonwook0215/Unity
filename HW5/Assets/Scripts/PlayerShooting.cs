@@ -14,17 +14,19 @@ public class PlayerShooting : MonoBehaviour
     public ParticleSystem muzzleFlash;
     void Update(){
         
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0)&&!UIManager.instance.GameIsPaused)
         {
             ShootSingleBullet();
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1)&&shotgunable){
+        if (Input.GetKeyDown(KeyCode.Mouse1)&&shotgunable && !UIManager.instance.GameIsPaused)
+        {
             ShootShotgun();
         }
     }
 
     private void ShootSingleBullet()
     {
+        this.gameObject.GetComponent<AudioSource>().Play();
         GameObject bullet = Instantiate(prefab, shootPoint.transform.position, shootPoint.transform.rotation);
 
         Vector3 playerDirection = yourPlayerTransform.forward;
@@ -35,9 +37,11 @@ public class PlayerShooting : MonoBehaviour
     }
     private void ShootShotgun()
     {
+        this.gameObject.GetComponent<AudioSource>().Play();
         Vector3 playerDirection = yourPlayerTransform.forward;
         for (int i = 0; i < 5; i++)
         {
+
             Quaternion spreadRotation = Quaternion.Euler(0, 0, Random.Range(-10f, 10f));
 
             GameObject bullet = Instantiate(prefab, shootPoint.transform.position, shootPoint.transform.rotation * spreadRotation);

@@ -21,6 +21,7 @@ public class EnemyFSM : MonoBehaviour
     public ParticleSystem muzzleFlash;
     private void Awake()
     {
+       
         baseTransform = GameObject.Find("BaseDamagePoint").transform;
         agent = GetComponentInParent<NavMeshAgent>();
         _animator = GetComponentInParent<Animator>(); // 적에게 할당된 Animator를 가져옴

@@ -26,11 +26,16 @@ public class WavesGameMode : MonoBehaviour
         {
             SceneManager.LoadScene("WinScreen");
         }
-        if (playerBaseLife.amount <= 0)
+        if (playerBaseLife.amount <= 0||playerLife.amount<=0)
         {
-            SceneManager.LoadScene("LoseScreen");
+            playerLife.amount = -1;
+            StartCoroutine(WaitSeconds());
         }
 
     }
-
+    IEnumerator WaitSeconds()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        SceneManager.LoadScene("LoseScreen");
+    }
 }
